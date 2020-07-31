@@ -8,6 +8,7 @@ df = pd.DataFrame(dataset)
 from sklearn.preprocessing import LabelEncoder
 labelencoder = LabelEncoder()
 df['output'] = labelencoder.fit_transform(df['Label'])
+df['year1'] = labelencoder.fit_transform(df['Which-year are you studying in?'])
 
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
