@@ -6,24 +6,20 @@ dataset = pd.read_csv(sys.argv[1])
 df = pd.DataFrame(dataset)
 
 from sklearn.preprocessing import LabelEncoder
-label = LabelEncoder()
-
-df['Criteria'] = label.fit_transform(df['Label'])
-
-
+labelencoder = LabelEncoder()
+df['output'] = labelencoder.fit_transform(df['Label'])
 
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
 
-data=df[["CGPA/ percentage","Rate your written communication skills [1-10]","Rate your verbal communication skills [1-10]"]]
-target=df['Criteria']
+x4=df[["CGPA/ percentage","Rate your written communication skills [1-10]","Rate your verbal communication skills [1-10]","year1"]]
+y4=df['output']
 
-X_train, X_test,y_train,y_test = train_test_split(data,target,random_state =42)
+x_train1, x_test1, y_train1,y_test1=train_test_split(x4,y4,test_size=0.20,random_state=42)
 
-model=RandomForestClassifier(n_estimators=10)
-model.fit(X_train, y_train)
-expected = y_test
-predicted = model.predict(X_test)
-print(f1_score(expected,predicted))
+ans3=RandomForestClassifier()
+ans3.fit(x_train1, y_train1)
+y_pred4= ans3.predict(x_test1)
+print(f1_score(y_test1, y_pred4))
